@@ -14,9 +14,6 @@
   * limitations under the License.
   */
 package play.api.libs.json
-// BEGIN ATLASSIAN CHANGES (https://github.com/mandubian/play-json-zipper/issues/2)
-package monad
-// END ATLASSIAN CHANGES
 
 import scala.util.{Try, Success, Failure}
 import scala.annotation.tailrec

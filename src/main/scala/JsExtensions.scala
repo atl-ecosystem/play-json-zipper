@@ -90,9 +90,7 @@ implicit class JsExtensions(val js: JsValue) extends AnyVal {
   }
 
   /** Monadic features */
-  // BEGIN ATLASSIAN CHANGES (https://github.com/mandubian/play-json-zipper/issues/2)
-  import monad._, syntax._
-  // END ATLASSIAN CHANGES
+  import syntax._
 
   def setM[M[_]: Monad](pathValues: (JsPath, M[JsValue])*): M[JsValue] = {
     JsZipperM[M](js).createOrUpdate(pathValues).map(_.root.value)
@@ -136,9 +134,7 @@ implicit class JsExtensions(val js: JsValue) extends AnyVal {
 }
 
 object JsExtensions {
-  // BEGIN ATLASSIAN CHANGES
-  import monad._, syntax._
-  // END ATLASSIAN CHANGES
+  import syntax._
 
   def buildJsObject(pathValues: (JsPath, JsValue)*): JsValue =
     JsZipper.buildJsObject(pathValues).root.value

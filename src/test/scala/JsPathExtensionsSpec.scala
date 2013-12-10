@@ -7,9 +7,7 @@ import org.specs2.runner.JUnitRunner
 import org.specs2.specification.{Step, Fragments}
 
 import play.api.libs.json._
-// BEGIN ATLASSIAN CHANGES (https://github.com/mandubian/play-json-zipper/issues/2)
-import monad._, syntax._
-// END ATLASSIAN CHANGES
+import syntax._
 import play.api.libs.functional.syntax._
 import play.api.libs.json.extensions._
 
