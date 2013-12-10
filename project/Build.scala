@@ -2,9 +2,9 @@ import sbt._
 import Keys._
 
 object ApplicationBuild extends Build {
-  import sbtrelease.ReleasePlugin._
+  val buildName         = "play-json-zipper"
 
-  val buildName         = "play-json-zipper"    
+  val buildVersion      = "1.0"
 
   val mandubianRepo = Seq(
     "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
@@ -14,14 +14,22 @@ object ApplicationBuild extends Build {
 
   lazy val playJsZipper = Project(
     buildName, file("."),
-    settings = Defaults.defaultSettings ++ releaseSettings ++ Seq(
+    settings = Defaults.defaultSettings ++ Seq(
       resolvers ++= mandubianRepo,
       scalaVersion := "2.10.2",
+      version      := buildVersion,
       libraryDependencies ++= Seq(
         "com.typesafe.play"   %% "play-json"  % "2.2.0"          ,
         "org.specs2"          %% "specs2"     % "1.13"   % "test",
         "junit"                % "junit"      % "4.8"    % "test"
-      )
+      ),
+      publishMavenStyle := true,
+      publishTo <<= version { (version: String) =>
+        val localPublishRepo = "../mandubian-mvn/"
+        if(version.trim.endsWith("SNAPSHOT"))
+          Some(Resolver.file("snapshots", new File(localPublishRepo + "/snapshots")))
+        else Some(Resolver.file("releases", new File(localPublishRepo + "/releases")))
+      }
     )
   )
 }
